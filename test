@@ -1,0 +1,68 @@
+import java.util.Scanner;
+class Client {
+    private String name;
+    private String id;
+    private String address;
+    public Client (String name, String id){
+        this.name=name;
+        this.id=id;
+    }
+    public Client (String name, String id, String address){
+        this.name=name;
+        this.id=id;
+        this.address=address;
+    }
+    public String returnName(){
+        return name;
+    }
+    public String returnId(){
+        return id;
+    }
+}
+class CashClient extends Client {
+    public CashClient(String name, String id){
+        super(name, id);
+    }
+    public CashClient (String name, String id, String address){
+        super(name, id, address);
+    }
+    public void payCash(int money) {
+        System.out.println(super.returnName()+"("+super.returnId()+"): Amount paid "+money +" euros.");
+    }
+}
+class AccountClient extends Client {
+    private double deposit;
+    public AccountClient(String name, String id){
+        super(name, id);
+        deposit=0;
+    }
+    public AccountClient (String name, String id, String address){
+        super(name, id, address);
+        deposit=0;
+    }
+    public void deposit(double ammount){
+        deposit+=ammount;
+    }
+    public void withdraw(double ammount){
+        deposit-=ammount;
+    }
+    public String toString(){
+        return super.returnName()+"("+super.returnId()+"): "+deposit;
+    }
+}
+public class Main {
+    public static void main(String args[]) {
+        CashClient client1 = new CashClient("Lisa", "101070-1111");
+        AccountClient client2 = new AccountClient("Benny", "101070-1111");
+        AccountClient client3 = new AccountClient("Barney", "040474-1571", "Someroad 3");
+        Client client4 = new Client("Client", "111170-1111", "Road 4"); 
+           
+        client1.payCash(70);
+        client2.deposit(100);
+        client3.deposit(500);
+        client2.withdraw(20);
+        
+        System.out.println(client2);
+        System.out.println(client3);  
+    }
+}
